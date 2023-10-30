@@ -18,6 +18,8 @@ fluentci run github_pipeline
 
 | Variable              | Description                   |
 |-----------------------|-------------------------------|
+| TAG                   | Tag to upload the file to     |
+| FILE                  | File to upload                |
 | GH_TOKEN              | Github Access Token           |
 
 
@@ -40,3 +42,7 @@ import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.1.0/mo
 
 await releaseUpload();
 ```
+
+## Examples
+
+See [fluentci-io/github-release-demo](https://github.com/fluentci-io/github-release-demo) for an example.
