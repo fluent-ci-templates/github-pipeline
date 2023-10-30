@@ -1,0 +1,5 @@
+{
+  "root": "",
+  "name": "github",
+  "sdkRuntime": "tsiry/dagger-sdk-deno"
+}
