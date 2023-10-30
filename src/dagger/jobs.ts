@@ -17,7 +17,7 @@ export const releaseUpload = async (src = ".", tag?: string, file?: string) => {
       .from("pkgxdev/pkgx:latest")
       .withExec(["apt-get", "update"])
       .withExec(["apt-get", "install", "-y", "ca-certificates"])
-      .withExec(["pkgx", "install", "gh"])
+      .withExec(["pkgx", "install", "gh", "git"])
       .withMountedCache("/assets", client.cacheVolume("gh-release-assets"))
       .withDirectory("/app", context)
       .withWorkdir("/app")
