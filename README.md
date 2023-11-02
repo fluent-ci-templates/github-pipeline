@@ -38,7 +38,7 @@ fluentci run github_pipeline
 You can also use this pipeline programmatically:
 
 ```typescript
-import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.1.0/mod.ts";
+import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.1.1/mod.ts";
 
 await releaseUpload();
 ```
