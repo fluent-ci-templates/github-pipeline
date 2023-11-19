@@ -3,5 +3,5 @@
 
 
 type Query {
-  releaseUpload(file: String!, src: String!, tag: String!): String
+  releaseUpload(file: String!, src: String, tag: String!): String
 }

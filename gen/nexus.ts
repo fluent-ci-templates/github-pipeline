@@ -57,7 +57,7 @@ export interface NexusGenArgTypes {
   Query: {
     releaseUpload: { // args
       file: string; // String!
-      src: string; // String!
+      src?: string | null; // String
       tag: string; // String!
     }
   }

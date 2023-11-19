@@ -14,12 +14,12 @@ const Query = queryType({
   definition(t) {
     t.string("releaseUpload", {
       args: {
-        src: nonNull(stringArg()),
+        src: stringArg(),
         tag: nonNull(stringArg()),
         file: nonNull(stringArg()),
       },
       resolve: async (_root, args, _ctx) =>
-        await releaseUpload(args.src, args.tag, args.file),
+        await releaseUpload(args.src || undefined, args.tag, args.file),
     });
   },
 });
