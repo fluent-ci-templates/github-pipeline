@@ -1,5 +1,6 @@
-import Client from "../../deps.ts";
+import Client, { Directory } from "../../deps.ts";
 import { connect } from "../../sdk/connect.ts";
+import { getDirectory } from "./lib.ts";
 
 export enum Job {
   releaseUpload = "release_upload",
@@ -7,11 +8,15 @@ export enum Job {
 
 export const exclude = [];
 
-export const releaseUpload = async (src = ".", tag?: string, file?: string) => {
+export const releaseUpload = async (
+  src: string | Directory | undefined = ".",
+  tag?: string,
+  file?: string
+) => {
   await connect(async (client: Client) => {
     const TAG = Deno.env.get("TAG") || tag || "latest";
     const FILE = Deno.env.get("FILE") || file!;
-    const context = client.host().directory(src);
+    const context = getDirectory(client, src);
     const ctr = client
       .pipeline(Job.releaseUpload)
       .container()
