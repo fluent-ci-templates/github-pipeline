@@ -30,7 +30,7 @@ fluentci run github_pipeline
 | release_upload | Uploads a file to a github release                         |
 
 ```graphql
-    releaseUpload(file: String!, src: String!, tag: String!): String
+releaseUpload(file: String!, src: String, tag: String!): String
 ```
 
 ## Programmatic usage
