@@ -1,6 +1,6 @@
-import Client, { Directory } from "../../deps.ts";
+import Client, { Directory, Secret } from "../../deps.ts";
 import { connect } from "../../sdk/connect.ts";
-import { getDirectory } from "./lib.ts";
+import { getDirectory, getGithubToken } from "./lib.ts";
 
 export enum Job {
   releaseUpload = "release_upload",
@@ -11,12 +11,20 @@ export const exclude = [];
 export const releaseUpload = async (
   src: string | Directory | undefined = ".",
   tag?: string,
-  file?: string
+  file?: string,
+  token?: string | Secret
 ) => {
   await connect(async (client: Client) => {
     const TAG = Deno.env.get("TAG") || tag || "latest";
     const FILE = Deno.env.get("FILE") || file!;
     const context = getDirectory(client, src);
+    const secret = getGithubToken(client, token);
+
+    if (!secret) {
+      console.error("GH_TOKEN is required");
+      Deno.exit(1);
+    }
+
     const ctr = client
       .pipeline(Job.releaseUpload)
       .container()
@@ -27,7 +35,7 @@ export const releaseUpload = async (
       .withMountedCache("/assets", client.cacheVolume("gh-release-assets"))
       .withDirectory("/app", context)
       .withWorkdir("/app")
-      .withEnvVariable("GH_TOKEN", Deno.env.get("GH_TOKEN") || "")
+      .withSecretVariable("GH_TOKEN", secret)
       .withExec(["gh", "release", "upload", TAG, FILE]);
 
     await ctr.stdout();
