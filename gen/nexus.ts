@@ -59,6 +59,7 @@ export interface NexusGenArgTypes {
       file: string; // String!
       src?: string | null; // String
       tag: string; // String!
+      token: string; // String!
     }
   }
 }

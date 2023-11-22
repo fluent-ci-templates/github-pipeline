@@ -17,9 +17,15 @@ const Query = queryType({
         src: stringArg(),
         tag: nonNull(stringArg()),
         file: nonNull(stringArg()),
+        token: nonNull(stringArg()),
       },
       resolve: async (_root, args, _ctx) =>
-        await releaseUpload(args.src || undefined, args.tag, args.file),
+        await releaseUpload(
+          args.src || undefined,
+          args.tag,
+          args.file,
+          args.token
+        ),
     });
   },
 });
@@ -34,6 +40,7 @@ const schema = makeSchema({
 
 schema.description = JSON.stringify({
   "releaseUpload.src": "directory",
+  "releaseUpload.token": "secret",
 });
 
 export { schema };
