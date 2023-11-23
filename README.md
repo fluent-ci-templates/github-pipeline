@@ -14,6 +14,14 @@ Run the following command:
 fluentci run github_pipeline
 ```
 
+## Dagger Module
+
+Use as a [Dagger](https://dagger.io) Module:
+
+```bash
+dagger mod install github.com/fluent-ci-templates/github-pipeline@mod
+```
+
 ## Environment Variables
 
 | Variable              | Description                   |
