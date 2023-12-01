@@ -8,12 +8,21 @@ export enum Job {
 
 export const exclude = [];
 
-export const releaseUpload = async (
-  src: string | Directory | undefined = ".",
-  tag?: string,
-  file?: string,
-  token?: string | Secret
-) => {
+/**
+ * @function
+ * @description Upload asset files to a GitHub Release
+ * @param {string | Directory} src
+ * @param {string} tag
+ * @param {string} file
+ * @param {string | Secret} token
+ * @returns {string}
+ */
+export async function releaseUpload(
+  src: string | Directory,
+  tag: string,
+  file: string,
+  token: string | Secret
+): Promise<string> {
   await connect(async (client: Client) => {
     const TAG = Deno.env.get("TAG") || tag || "latest";
     const FILE = Deno.env.get("FILE") || file!;
@@ -42,12 +51,13 @@ export const releaseUpload = async (
   });
 
   return "Done";
-};
+}
 
 export type JobExec = (
-  src?: string,
-  tag?: string,
-  file?: string
+  src: string | Directory,
+  tag: string,
+  file: string,
+  token: string | Secret
 ) => Promise<string>;
 
 export const runnableJobs: Record<Job, JobExec> = {

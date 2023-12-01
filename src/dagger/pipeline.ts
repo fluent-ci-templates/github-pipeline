@@ -12,7 +12,12 @@ export default async function pipeline(src = ".", args: string[] = []) {
     return;
   }
 
-  await releaseUpload();
+  await releaseUpload(
+    src,
+    Deno.env.get("TAG") || "latest",
+    Deno.env.get("FILE") || "",
+    Deno.env.get("GH_TOKEN") || ""
+  );
 }
 
 async function runSpecificJobs(args: jobs.Job[]) {
@@ -21,6 +26,11 @@ async function runSpecificJobs(args: jobs.Job[]) {
     if (!job) {
       throw new Error(`Job ${name} not found`);
     }
-    await job();
+    await job(
+      ".",
+      Deno.env.get("TAG") || "latest",
+      Deno.env.get("FILE") || "",
+      Deno.env.get("GH_TOKEN") || ""
+    );
   }
 }
