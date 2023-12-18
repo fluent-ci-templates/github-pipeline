@@ -37,8 +37,13 @@ dagger mod install github.com/fluent-ci-templates/github-pipeline@mod
 |----------------|------------------------------------------------------------|
 | release_upload | Uploads a file to a github release                         |
 
-```graphql
-releaseUpload(file: String!, src: String, tag: String!, token: String!): String
+```typescript
+releaseUpload(
+  src: string | Directory,
+  tag: string,
+  file: string,
+  token: string | Secret
+): Promise<string>
 ```
 
 ## Programmatic usage
@@ -46,9 +51,14 @@ releaseUpload(file: String!, src: String, tag: String!, token: String!): String
 You can also use this pipeline programmatically:
 
 ```typescript
-import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.3.0/mod.ts";
+import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.4.0/mod.ts";
 
-await releaseUpload();
+await releaseUpload(
+  ".",
+  Deno.env.get("TAG") || "latest",
+  Deno.env.get("FILE")!,
+  Deno.env.get("GH_TOKEN")!
+);
 ```
 
 ## Examples
