@@ -26,8 +26,8 @@ export async function releaseUpload(
   await connect(async (client: Client) => {
     const TAG = Deno.env.get("TAG") || tag || "latest";
     const FILE = Deno.env.get("FILE") || file!;
-    const context = getDirectory(client, src);
-    const secret = getGithubToken(client, token);
+    const context = await getDirectory(client, src);
+    const secret = await getGithubToken(client, token);
 
     if (!secret) {
       console.error("GH_TOKEN is required");
