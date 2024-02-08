@@ -4,6 +4,8 @@
 ![deno compatibility](https://shield.deno.dev/deno/^1.37)
 [![](https://img.shields.io/codecov/c/gh/fluent-ci-templates/github-pipeline)](https://codecov.io/gh/fluent-ci-templates/github-pipeline)
 
+[![CodeSee](https://codesee-docs.s3.amazonaws.com/badge.svg?)](https://app.codesee.io/maps/public/45528610-c67a-11ee-96b5-9da64a65e5f1)
+
 A ready-to-use CI/CD Pipeline for uploading assets to github releases.
 
 ## 🚀 Usage
