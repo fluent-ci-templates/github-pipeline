@@ -4,8 +4,6 @@
 ![deno compatibility](https://shield.deno.dev/deno/^1.37)
 [![](https://img.shields.io/codecov/c/gh/fluent-ci-templates/github-pipeline)](https://codecov.io/gh/fluent-ci-templates/github-pipeline)
 
-[![CodeSee](https://codesee-docs.s3.amazonaws.com/badge.svg?)](https://app.codesee.io/maps/public/45528610-c67a-11ee-96b5-9da64a65e5f1)
-
 A ready-to-use CI/CD Pipeline for uploading assets to github releases.
 
 ## 🚀 Usage
@@ -21,7 +19,16 @@ fluentci run github_pipeline
 Use as a [Dagger](https://dagger.io) Module:
 
 ```bash
-dagger mod install github.com/fluent-ci-templates/github-pipeline@mod
+dagger install github.com/fluent-ci-templates/github-pipeline@main
+```
+
+Call a function from the module:
+
+```bash
+dagger call release-upload --src . \
+ --tag v0.1.0 \
+ --file demo_x86_64-unknown-linux-gnu.tar.gz \
+ --token GH_TOKEN
 ```
 
 ## Environment Variables
@@ -53,7 +60,7 @@ releaseUpload(
 You can also use this pipeline programmatically:
 
 ```typescript
-import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.4.2/mod.ts";
+import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.4.3/mod.ts";
 
 await releaseUpload(
   ".",
