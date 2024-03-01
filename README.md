@@ -60,7 +60,7 @@ releaseUpload(
 You can also use this pipeline programmatically:
 
 ```typescript
-import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.4.3/mod.ts";
+import { releaseUpload } from "https://pkg.fluentci.io/github_pipeline@v0.4.4/mod.ts";
 
 await releaseUpload(
   ".",
