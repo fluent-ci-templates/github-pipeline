@@ -1,5 +1,11 @@
-import { Directory, DirectoryID, Secret, SecretID } from "../../deps.ts";
-import { dag } from "../../sdk/client.gen.ts";
+import {
+  dag,
+  env,
+  Directory,
+  DirectoryID,
+  Secret,
+  SecretID,
+} from "../../deps.ts";
 
 export const getDirectory = async (
   src: string | Directory | undefined = "."
@@ -24,8 +30,8 @@ export const getDirectory = async (
 };
 
 export const getGithubToken = async (token?: string | Secret) => {
-  if (Deno.env.get("GH_TOKEN")) {
-    return dag.setSecret("GH_TOKEN", Deno.env.get("GH_TOKEN")!);
+  if (env.get("GH_TOKEN")) {
+    return dag.setSecret("GH_TOKEN", env.get("GH_TOKEN")!);
   }
   if (token && typeof token === "string") {
     try {

@@ -1,12 +1,9 @@
-import { uploadContext } from "../../deps.ts";
 import * as jobs from "./jobs.ts";
+import { env } from "../../deps.ts";
 
-const { releaseUpload, runnableJobs, exclude } = jobs;
+const { releaseUpload, runnableJobs } = jobs;
 
 export default async function pipeline(src = ".", args: string[] = []) {
-  if (Deno.env.has("FLUENTCI_SESSION_ID")) {
-    await uploadContext(src, exclude);
-  }
   if (args.length > 0) {
     await runSpecificJobs(args as jobs.Job[]);
     return;
@@ -14,9 +11,9 @@ export default async function pipeline(src = ".", args: string[] = []) {
 
   await releaseUpload(
     src,
-    Deno.env.get("TAG") || "latest",
-    Deno.env.get("FILE") || "",
-    Deno.env.get("GH_TOKEN") || ""
+    env.get("TAG") || "latest",
+    env.get("FILE") || "",
+    env.get("GH_TOKEN") || ""
   );
 }
 

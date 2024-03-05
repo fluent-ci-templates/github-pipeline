@@ -1,5 +1,4 @@
-import { dag } from "../../sdk/client.gen.ts";
-import { Directory, Secret } from "../../deps.ts";
+import { dag, env, exit, Directory, Secret } from "../../deps.ts";
 import { getDirectory, getGithubToken } from "./lib.ts";
 
 export enum Job {
@@ -9,6 +8,8 @@ export enum Job {
 export const exclude = [];
 
 /**
+ * Upload asset files to a GitHub Release
+ *
  * @function
  * @description Upload asset files to a GitHub Release
  * @param {string | Directory} src
@@ -23,14 +24,15 @@ export async function releaseUpload(
   file: string,
   token: string | Secret
 ): Promise<string> {
-  const TAG = Deno.env.get("TAG") || tag || "latest";
-  const FILE = Deno.env.get("FILE") || file!;
+  const TAG = env.get("TAG") || tag || "latest";
+  const FILE = env.get("FILE") || file!;
   const context = await getDirectory(src);
   const secret = await getGithubToken(token);
 
   if (!secret) {
     console.error("GH_TOKEN is required");
-    Deno.exit(1);
+    exit(1);
+    return "";
   }
 
   const ctr = dag
