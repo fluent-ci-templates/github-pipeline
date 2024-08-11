@@ -1,5 +1,5 @@
-import { dag, env, exit, Directory, Secret } from "../../deps.ts";
-import { getDirectory, getGithubToken } from "./lib.ts";
+import { dag, env, exit, type Directory, type Secret } from "../deps.ts";
+import { getDirectory, getGithubToken } from "./helpers.ts";
 
 export enum Job {
   releaseUpload = "release_upload",

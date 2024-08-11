@@ -1,5 +1,5 @@
 import * as jobs from "./jobs.ts";
-import { env } from "../../deps.ts";
+import { env } from "../deps.ts";
 
 const { releaseUpload, runnableJobs } = jobs;
 

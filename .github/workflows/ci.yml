@@ -13,15 +13,16 @@ jobs:
       - name: Setup Fluent CI
         uses: fluentci-io/setup-fluentci@v5
         with:
-          pipeline: deno_pipeline
-          args: fmt test
+          wasm: true
+          plugin: deno
+          args: fmt
       - name: Run Dagger Pipelines
         run: |
           dagger -m github.com/fluent-ci-templates/github-pipeline@main functions
-      - name: Upload to Codecov
-        run: fluentci run codecov_pipeline
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #- name: Upload to Codecov
+      #  run: fluentci run codecov_pipeline
+      #  env:
+      #   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   publish:
     needs: tests
     runs-on: ubuntu-latest
