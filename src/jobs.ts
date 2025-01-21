@@ -1,4 +1,4 @@
-import { dag, env, exit, type Directory, type Secret } from "../deps.ts";
+import { dag, type Directory, env, exit, type Secret } from "../deps.ts";
 import { getDirectory, getGithubToken } from "./helpers.ts";
 
 export enum Job {
@@ -22,7 +22,7 @@ export async function releaseUpload(
   src: string | Directory,
   tag: string,
   file: string,
-  token: string | Secret
+  token: string | Secret,
 ): Promise<string> {
   const TAG = env.get("TAG") || tag || "latest";
   const FILE = env.get("FILE") || file!;
@@ -41,7 +41,7 @@ export async function releaseUpload(
     .from("pkgxdev/pkgx:latest")
     .withExec(["apt-get", "update"])
     .withExec(["apt-get", "install", "-y", "ca-certificates"])
-    .withExec(["pkgx", "install", "gh", "git"])
+    .withExec(["pkgm", "install", "gh", "git"])
     .withMountedCache("/assets", dag.cacheVolume("gh-release-assets"))
     .withDirectory("/app", context)
     .withWorkdir("/app")
@@ -55,7 +55,7 @@ export type JobExec = (
   src: string | Directory,
   tag: string,
   file: string,
-  token: string | Secret
+  token: string | Secret,
 ) => Promise<string>;
 
 export const runnableJobs: Record<Job, JobExec> = {

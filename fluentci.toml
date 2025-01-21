@@ -1,8 +1,6 @@
 [package]
-authors = [
-  "Tsiry Sandratraina <tsiry.sndr@fluentci.io>",
-]
+authors = ["Tsiry Sandratraina <tsiry.sndr@fluentci.io>"]
 description = "CI/CD Plugin for Github"
 license = "MIT"
 name = "github"
-version = "0.7.0"
+version = "0.7.1"
